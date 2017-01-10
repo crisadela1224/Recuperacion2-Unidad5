@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h1>School</h1>
+	<h:form id="frmSchool">
+	Name:<h:inputText value="#{schoolController.school.name}"/>
+	Direction: <h:inputText value="#{schoolController.school.direction}" />
+	
+	<h:commandButton action="#{schoolController.save}" value="Save"> 		
+ 		<f:ajax execute="frmSchool" render="frmSchool"/>
+ 		</h:commandButton>
+	<h:dataTable value="#{schoolController.schools}" var="c" id="dtSchool">
+ 			<h:column>
+ 				<f:facet name="header">ID</f:facet>
+ 				#{c.id}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Name</f:facet>
+ 				#{c.name}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Direction</f:facet>
+ 				#{c.direction}
+ 			</h:column>
+ 			
+ 			
+ 			
+ 		<h:column>
+ 			<f:facet name="header">Actions</f:facet>
+ 			<h:commandButton action="#{schoolController.delete(c)}" 
+ 			value="Delete" onClick="return window.confirm('Are you sure?')">
+ 			<f:ajax render="frmSchool:dtSchool"/>
+ 			</h:commandButton>
+ 			<h:commandButton action="#{schoolController.update(c)}"
+ 			 value="Update">
+ 			<f:ajax render="frmSchool"/>
+ 			</h:commandButton>
+ 		</h:column>
+ 		
+ 		</h:dataTable>
+ 		</h:form>
+</body> 
+</html>

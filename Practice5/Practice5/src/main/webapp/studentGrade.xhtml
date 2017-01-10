@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h1>StudentGrade</h1>
+	<h:form id="frmStudentGrade">
+	Course Id:<h:inputText value="#{studentGradeController.studentGrade.courseId}"/>
+	Student Id: <h:inputText value="#{studentGradeController.studentGrade.studentId}" />
+	Grade: <h:inputText value="#{studentGradeController.studentGrade.grade}" />
+	<h:commandButton action="#{studentGradeController.save}" value="Save"> 		
+ 		<f:ajax execute="frmStudentGrade" render="frmStudentGrade"/>
+ 		</h:commandButton>
+	<h:dataTable value="#{studentGradeController.studentGrades}" var="c" id="dtStudentGrade">
+ 			<h:column>
+ 				<f:facet name="header">ID</f:facet>
+ 				#{c.id}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Course Id</f:facet>
+ 				#{c.courseId}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Student Id</f:facet>
+ 				#{c.studentId}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Grade</f:facet>
+ 				#{c.grade}
+ 			</h:column>
+ 			
+ 			
+ 		<h:column>
+ 			<f:facet name="header">Actions</f:facet>
+ 			<h:commandButton action="#{studentGradeController.delete(c)}" 
+ 			value="Delete" onClick="return window.confirm('Are you sure?')">
+ 			<f:ajax render="frmStudentGrade:dtStudentGrade"/>
+ 			</h:commandButton>
+ 			<h:commandButton action="#{studentGradeController.update(c)}"
+ 			 value="Update">
+ 			<f:ajax render="frmStudentGrade"/>
+ 			</h:commandButton>
+ 		</h:column>
+ 		
+ 		</h:dataTable>
+ 		</h:form>
+</body> 
+</html>

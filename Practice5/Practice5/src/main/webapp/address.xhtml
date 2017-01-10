@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h1>Address</h1>
+	
+	<h:form id="frmAddress">
+	Number Building:<h:inputText value="#{addressController.address.numberBuilding}"/>
+	Number Street: <h:inputText value="#{addressController.address.numberStreet}" />
+	Area Locality: <h:inputText value="#{addressController.address.areaLocality}" />
+	City: <h:inputText value="#{addressController.address.city}" />
+	Post Code: <h:inputText value="#{addressController.address.postCode}" />
+	State Province: <h:inputText value="#{addressController.address.stateProvince}"/>
+	Other Address Details: <h:inputText value="#{addressController.address.otherAddressDetails}" />
+	
+	<h:commandButton action="#{addressController.save}" value="Save"> 		
+ 		<f:ajax execute="frmAddress" render="frmAddress"/>
+ 		</h:commandButton>
+	<h:dataTable value="#{addressController.addresses}" var="c" id="dtAddress">
+ 			<h:column>
+ 				<f:facet name="header">ID</f:facet>
+ 				#{c.id}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Number Building</f:facet>
+ 				#{c.numberBuilding}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Number Street</f:facet>
+ 				#{c.numberStreet}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">City</f:facet>
+ 				#{c.city}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">Post Code</f:facet>
+ 				#{c.postCode}
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">State Province</f:facet>
+ 				#{c.stateProvince}
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">Other Address Details</f:facet>
+ 				#{c.otherAddressDetails}
+ 			</h:column>
+ 		<h:column>
+ 			<f:facet name="header">Actions</f:facet>
+ 			<h:commandButton action="#{addressController.delete(c)}" 
+ 			value="Delete" onClick="return window.confirm('Are you sure?')">
+ 			<f:ajax render="frmAddress:dtAddress"/>
+ 			</h:commandButton>
+ 			<h:commandButton action="#{addressController.update(c)}"
+ 			 value="Update">
+ 			<f:ajax render="frmAddress"/>
+ 			</h:commandButton>
+ 		</h:column>
+ 		
+ 		</h:dataTable>
+ 		</h:form>
+</body> 
+</html>
